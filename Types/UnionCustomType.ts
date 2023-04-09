@@ -1,5 +1,6 @@
 // Type Aliases / Custom Types
 // Creating your own type cast combinations
+// Main objective and use case of Aliases type is reusability
 
 type Combinable = number | string;
 type ConversionDescriptor = 'as-number' | 'as-text';
