@@ -1,6 +1,7 @@
 // Inheritance, super constructor, overriding, protected, getters and setters
 // Static method / properties
 // Abstract classes
+// Singleton Constructor / Private Constructor
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -27,9 +28,6 @@ var Department = /** @class */ (function () {
         return { name: name };
     };
     // Methods
-    Department.prototype.describe = function () {
-        console.log("Department: ".concat(this.id, " ").concat(this.name));
-    };
     Department.prototype.addEmployee = function (employee) {
         this.employees.push(employee);
     };
@@ -49,8 +47,13 @@ var ITDepartment = /** @class */ (function (_super) {
         _this.admins = admins;
         return _this;
     }
+    // Implement abstract method from parent
+    ITDepartment.prototype.describe = function () {
+        console.log('IT Department - ID: ' + this.id);
+    };
     return ITDepartment;
 }(Department));
+// Enforece a signleton class - Only 1 object can be instantiated
 var AccountingDepartment = /** @class */ (function (_super) {
     __extends(AccountingDepartment, _super);
     function AccountingDepartment(id, reports) {
@@ -59,6 +62,13 @@ var AccountingDepartment = /** @class */ (function (_super) {
         _this.lastReport = _this.reports[0];
         return _this;
     }
+    // Static method to get instance for singleton
+    AccountingDepartment.getInstance = function () {
+        if (AccountingDepartment.instance) {
+            return this.instance;
+        }
+        this.instance = new AccountingDepartment('d2', []);
+    };
     Object.defineProperty(AccountingDepartment.prototype, "mostRecentReport", {
         // Getter
         get: function () {
@@ -89,7 +99,7 @@ var AccountingDepartment = /** @class */ (function (_super) {
         }
         this.employees.push(name);
     };
-    // Methods
+    // implement abstract method from parent
     AccountingDepartment.prototype.describe = function () {
         console.log("Accounting Department - ID: ".concat(this.id));
     };
@@ -106,7 +116,8 @@ it.printEmployeeInformation();
 // Using static method
 var employee1 = Department.createEmployees('Jon');
 console.log(employee1, Department.fiscalYear);
-var accounts = new AccountingDepartment('d2', []);
+// const accounts = new AccountingDepartment('d2', []);
+var accounts = AccountingDepartment.getInstance();
 // console.log(accounts.mostRecentReport); // Not parenthesis for getter and setter
 accounts.addReports('Imbalance report');
 console.log(accounts.mostRecentReport); // Not parenthesis for getter and setter
