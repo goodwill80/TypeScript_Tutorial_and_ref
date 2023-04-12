@@ -1,5 +1,5 @@
 // **** 1. What is Generics
-// Generics - Flexible and reusable code
+// Generics - Flexible, Type safety and reusable code
 // This does not exist in JS
 
 const names: Array<string> = []; // string[]
