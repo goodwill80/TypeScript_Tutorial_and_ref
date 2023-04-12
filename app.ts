@@ -1,13 +1,20 @@
-// Type Guard
-type Combinable2 = string | number;
-type Numeric2 = number | boolean;
+// Generics - Flexible and reusable code
+// This does not exist in JS
 
-type Universal2 = Combinable2 & Numeric2;
+const names: Array<string> = []; // string[]
+// By having the generic type, we can now do the following without error
+// names[0].split(' ');
 
-const addFn = (a: Combinable2, b: Combinable2) => {
-  // Type Guard using typeof
-  if (typeof a === 'string' || typeof b === 'string') {
-    return a.toString() + b.toString();
-  }
-  return a + b;
-};
+// Promise is a generic
+// const promise: Promise<Unknown>
+const promise: Promise<any> = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve('This is done!');
+  }, 2000);
+});
+
+// Creating a generic function
+
+function merge(objA: object, objB: object): object {
+  return Object.assign(objA, objB);
+}
